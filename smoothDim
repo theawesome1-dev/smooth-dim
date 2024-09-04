@@ -1,0 +1,26 @@
+#!/bin/bash
+b=$(brightnessctl g)
+d=${2:-10}  
+if [[ $1 == "dim" ]]; then
+	echo $b > savelight.txt
+	echo $b
+	while [ $b  -ge $d ]; do 
+	  echo $b
+	  brightnessctl set 5-
+	  sleep 0.02
+	  b=$(brightnessctl g)
+	  
+	done
+fi
+
+if [[ $1 = "bright" ]]; then
+	s=$(cat savelight.txt)
+	echo $s
+	while [ $b -lt $s ]; do 
+	  echo $b
+	  brightnessctl set 5+
+	  sleep 0.02
+	  b=$(brightnessctl g)
+	  
+	done
+fi 
